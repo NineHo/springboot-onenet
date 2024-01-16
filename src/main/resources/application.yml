@@ -1,0 +1,50 @@
+server:
+  port: 8101
+
+spring:
+  datasource:
+    driverClassName: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/ry?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8
+    username: root
+    password: root
+    type: com.alibaba.druid.pool.DruidDataSource
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+  mail:
+    host: smtp.qq.com  #邮件服务器地址
+    port: 587               #邮件服务器端口
+    default-encoding: UTF-8 #默认编码
+    username: 1728017141@qq.com         #这个是通过邮件服务器认证的用户名和密码，不一定是邮箱，看服务器的要求
+    password: zilwzelciijoejgd
+    properties: #properties中的属性都是比较灵活可配置的，其实是javax.mail.Session中对应的配置项，可以参考对应文档
+      mail.from: 1728017141@qq.com   #统一设置发件人邮箱
+      smtp:
+        auth: true #授权
+        starttls:
+          enable: true
+          required: true
+
+
+# mybatis-plus相关配置
+mybatis-plus:
+  # xml扫描，多个目录用逗号或者分号分隔（告诉 Mapper 所对应的 XML 文件位置）
+  mapper-locations: classpath*:mapper/*Mapper.xml
+  # 指定实体类的包,多个package用逗号或者分号分隔
+  type-aliases-package: com.yuyun.*.dto
+  # 以下配置均有默认值,可以不设置
+  global-config:
+    db-config:
+      #主键类型 AUTO:"数据库ID自增" INPUT:"用户输入ID",ID_WORKER:"全局唯一ID (数字类型唯一ID)", UUID:"全局唯一ID UUID";
+      id-type: AUTO
+      #字段策略 IGNORED:"忽略判断"  NOT_NULL:"非 NULL 判断")  NOT_EMPTY:"非空判断"
+      field-strategy: NOT_EMPTY
+      #数据库类型
+      db-type: MYSQL
+  configuration:
+    # 是否开启自动驼峰命名规则映射:从数据库列名到Java属性驼峰命名的类似映射
+    map-underscore-to-camel-case: true
+    # 如果查询结果中包含空值的列，则 MyBatis 在映射的时候，不会映射这个字段
+    call-setters-on-nulls: true
+    # 这个配置会将执行的sql打印出来，在开发或测试的时候可以用
+    #log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
